@@ -1,0 +1,279 @@
+body {
+  width: 100%;
+  margin: 0 auto;
+  background-image: url('fancy-pants.jpg');
+  text-align: center;
+  display: inline-block;
+}
+
+div {
+  margin: 0 auto;
+}
+
+.aanmeldtd {
+	width: 10%;
+}
+
+#toegangkolom {
+	width: 5%;
+}
+
+.navigatie {
+  width: 80%;
+  -webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+	        box-shadow: 0 8px 6px -6px black;
+}
+
+.welkomafbeelding {
+    width: 80%;
+    height: 0;
+    display: inline-block;
+}
+
+.moskeepic {
+  width: 100%;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.about {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #AF0D13;
+  display: inline-block;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.footer {
+  background-color: black;
+  margin: 0 auto;
+}
+
+div#adminform {
+  background-color:#AF0D13;
+  margin-top: 10px;
+  color: white;
+  width: 80%;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.invoerTabel {
+  width: 100%;
+  text-align: left;
+  border: 1px solid white;
+  margin: 0 auto;
+}
+
+table#pdfinvoertabel {
+  display: none;
+  width: 60%;
+  text-align: left;
+  border: 1px solid white;
+  margin: 0 auto;
+}
+
+table#downloads {
+  width: 60%;
+  text-align: left;
+  border: 1px solid white;
+  margin: 0 auto;
+}
+
+
+.inschrijvingen {
+  display: none;
+  background-color:#AF0D13;
+  margin-top: 10px;
+  color: white;
+  width: 80%;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.invoerForm {
+  display: none;
+  background-color:#AF0D13;
+  margin-top: 10px;
+  color: white;
+  width: 80%;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#terugknop {
+	display: none;
+}
+
+.welkomtekst {
+  font-style: italic;
+  color: white;
+  padding: 2px;
+  margin: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.welkomtekstLogin {
+  font-style: italic;
+  color: white;
+  padding: 2px;
+  margin: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bijeenkomsten {
+  background-color:#AF0D13;
+  margin-top: 10px;
+  color: white;
+  width: 80%;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Downloads {
+  background-color:#AF0D13;
+  margin-top: 10px;
+  color: white;
+  width: 80%;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.bijeenkomsten2 {
+  background-color:#AF0D13;
+  margin-top: 10px;
+  color: white;
+  width: 80%;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginform {
+  background-color:#AF0D13;
+  margin-top: 10px;
+  color: white;
+  width: 80%;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.registerdiv {
+  display: none;
+}
+
+table#table2{
+  width: 100%;
+  text-align: left;
+  border-radius: 3px;
+  margin: 0 auto;
+}
+
+table#table2 th {
+	border-bottom: 2px solid white;
+}
+
+#aanmeldColumn {
+	display: none;
+}
+
+table#table4 {
+  width: 100%;
+  text-align: left;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+table#table3{
+  width: 100%;
+  text-align: left;
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+table#table1 {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+table#table5 {
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+table#login {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+table#registertable {
+	width: 50%;
+	margin: 0 auto;
+	text-align: left;
+}
+
+#loguitKnop {
+	display: none;
+}
+
+td.terug {
+  text-align: right;
+}
+
+ul {
+    margin-top: 0;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #AF0D13;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+li {
+    float: left;
+    width: 25%
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 8px 30px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #8A0808;
+}

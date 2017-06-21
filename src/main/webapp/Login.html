@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>NIS</title>
+      <link rel="stylesheet" type="text/css" href="css/noor.css">
+      <link rel="icon" href="siteEmblem.png">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+   	  <script src="Javascript/noor.js"> </script>
+  </head>
+  <body>
+
+  <div class="navigatie">
+    <ul>
+      <li><a href="index.html">~ Home ~ </a></li>
+      <li><a href="Downloads.html">Downloads</a></li>
+      <li><a href="Bijeenkomsten.html">Bijeenkomsten</a></li>
+      <li><a id="loginBar" href="/Login.html">Log in</a></li>
+    </ul>
+  </div>
+
+  <div class="content">
+
+    <div class="welkomafbeelding">
+      <img src="noorimoskee.png" alt="Noori Moskee" class='moskeepic'>
+    </div>
+
+    <div class="about">
+      <h1 class='welkomtekstLogin'> Login pagina </h1>
+    </div>
+
+    <div class="loginform">
+      <form class="formulier" method="post">
+        <table id="login">
+          <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username"  id="gbnm"></td>
+          </tr>
+          <tr>
+            <td>Password:</td>
+            <td><input type="password" name="password" id="ww"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><button id="loginKnop" value="login" type="button">Log in!</button></td>
+          </tr>
+        </table>
+      </form>
+
+      <br/>
+      
+      <button id="loguitKnop">Log uit!</button>
+
+      <table id="table1">
+        <tr>
+          <td>Nog geen account? Registreert u zich dan gratis!</td>
+        </tr>
+        <tr>
+          <td><button type="button" id="register" name="Registreer">Registreren</button></td>
+        </tr>
+      </table>
+
+    <div class="registerdiv">
+      <form class="" action="index.html" method="post">
+      <table id='registertable'>
+        <tr>
+          <td>Gebruikersnaam:</td>
+          <td><input id="gbuser" type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>Voornaam:</td>
+          <td><input id="vnmuser" type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>Achternaam:</td>
+          <td><input id="anmuser" type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>Wachtwoord:</td>
+          <td><input id="wwuser" type="password" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>E-mail:</td>
+          <td><input id="mailuser" type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td class="terug"><button type="button" id="terug">Terug</button></td>
+          <td><button type="button" id="registerUser">Registreer!</button></td>
+        </tr>
+      </table>
+      </form>
+    </div>
+  </div>
+  </div>
+
+
+  <div class="footer"></div>
+
+  </body>
+
+</html>

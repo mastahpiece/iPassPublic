@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>NIS</title>
+      <link rel="stylesheet" type="text/css" href="css/noor.css">
+      <link rel="icon" href="siteEmblem.png">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+   	  <script src="Javascript/noor.js"> </script>
+   	  <script src="Javascript/admin.js"> </script>
+  </head>
+  <body>
+
+  <div class="navigatie">
+    <ul>
+      <li><a href="index.html">~ Home ~ </a></li>
+      <li><a href="Downloads.html">Downloads</a></li>
+      <li><a href="Bijeenkomsten.html">Bijeenkomsten</a></li>
+      <li><a id="loginBar" href="Login.html">Log in</a></li>
+    </ul>
+  </div>
+
+  <div class="contentAdmin">
+
+    <div class="welkomafbeelding">
+      <img src="noorimoskee.png" alt="Noori Moskee" class='moskeepic'>
+    </div>
+
+    <div class="about">
+      <h1 class='welkomtekst'> Adminpanel </h1>
+    </div>
+
+    <div id="adminform">
+      <form class="formulier" action="index.html" method="post">
+        <table id="login">
+          <tr>
+            <td><button type="button" id="bijinvoerknop">Voer bijeenkomst in</button></td>
+            <td><button type="button" id="terugknop">Terug</button></td>
+          </tr>
+        </table>
+      </form>
+
+      <br/>
+
+	<div class="invoerForm">
+	<form id="invoerFormulier">
+      <table class="invoerTabel">
+        <tr>
+        <th>Bijeenkomstbeschrijving</th>
+        <th>Toegang voor (m/v/mv)</th>
+        <th>Datum</th>
+        </tr>
+        <tr>
+          <td><input type="text" id='beschrijving' placeholder="Beschrijving"></td>
+          <td>
+              <select id="toegangVoor">
+                <option value="m">Mannen</option>
+                <option value="v">Vrouwen</option>
+                <option value="mv">Mannen en Vrouwen</option>
+              </select>
+          </td>
+          <td><input type="date" id="datum"></td>
+          <td><button type="button" id="submitBeschr">Voeg toe!</button></td>
+        </tr>
+      </table>
+      </form>
+
+      <div class="bijeenkomsten2">
+      <table id="table3">
+        <tr>
+          <th>Bijeenkomst</th>
+          <th>Toegang voor</th>
+          <th>Datum</th>
+        </tr>
+      </table>
+    </div>
+    </div>
+
+	<div class="inschrijvingen "id="inschrijvingen">
+      <table id="table4">
+        <tr>
+          <th>Bijeenkomst</th>
+          <th>Toegang voor</th>
+          <th>Datum</th>
+        </tr>
+      </table>
+      <table id='table5'><tr><th>Inschrijvingen</th></tr><tr><td></td></tr></table>
+      
+    </div>
+
+      <table id="table1">
+        <tr>
+          <td><button type="button" id="register" name="Registreer">Registreer admin</button></td>
+        </tr>
+        <tr>
+        <td> - </td>
+        </tr>
+        <tr>
+        <td><button type="button" id="zieIn">Zie Inschrijvingen</button></td>
+        </tr>
+        <tr>
+        <td> - </td>
+        </tr>
+        <tr>
+        <td><button type="button" id="loguit">Log uit</button></td>
+        </tr>
+      </table>
+
+
+    <div class="registerdiv">
+      <form class="" action="index.html" method="post">
+      <table id='registertable'>
+        <tr>
+          <td>Gebruikersnaam:</td>
+          <td><input id="gbadmin" type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>Voornaam:</td>
+          <td><input id="vnmadmin" type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>Achternaam:</td>
+          <td><input id="anmadmin" type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>Wachtwoord:</td>
+          <td><input id="wwadmin" type="password" name="" value=""></td>
+        </tr>
+        <tr>
+          <td>E-mail:</td>
+          <td><input id="mailadmin" type="text" name="" value=""></td>
+        </tr>
+        <tr>
+          <td class="terug"><button type="button" id="terug">Terug</button></td>
+          <td><button id="registerAdmin" type="button">Registreer!</button></td>
+        </tr>
+      </table>
+      </form>
+    </div>
+  </div>
+  </div>
+
+
+  <div class="footer"></div>
+
+  </body>
+
+</html>
