@@ -23,7 +23,7 @@ public class BijeenkomstResource {
 	
 	@GET
 	@Produces("application/json")
-	public String getAccounts(){
+	public String getBijeenkomsten(){
 		JsonArrayBuilder allAccounts = Json.createArrayBuilder();
 		
 		for (Bijeenkomst b : service.getAllBijeenkomsten()) {
@@ -66,7 +66,7 @@ public class BijeenkomstResource {
 	
 	@POST
 	@Produces("application/json")
-	public String createCustomer(InputStream is) {
+	public String createBijeenkomst(InputStream is) {
 	    JsonObject object = Json.createReader(is).readObject();
 	    String name = object.getString("beschr");
 	    String address = object.getString("toegang");

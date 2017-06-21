@@ -22,7 +22,7 @@ InschrijvingService service = ServiceProvider.getInschrijvingService();
 	
 	@GET
 	@Produces("application/json")
-	public String getAccounts(){
+	public String getInschrijvingen(){
 		JsonArrayBuilder allInschrijvingen = Json.createArrayBuilder();
 		
 		for (Inschrijving i : service.getAllInschrijvingen()) {

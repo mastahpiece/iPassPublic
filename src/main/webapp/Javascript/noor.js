@@ -110,7 +110,7 @@ $(document).ready(function(){
     	var JSONdata = JSON.stringify(data);
     	$.post("restservices/inschrijvingen", JSONdata, function(response){
     		alert("U bent ingeschreven")
-    		window.location.replace("Bijeenkomsten.html");
+    		laadBijeenkomsten1();
     	});
     });
     
@@ -284,6 +284,15 @@ else {
 }
 
 function registreerAdminAccount(){
+	if( 	
+			$("#gbadmin").val() == ""		||
+			$("#vnadmin").val() == ""	||
+			$("#anmadmin").val() == ""	||
+			$("#wwadmin").val() == ""		||
+			$("#mailadmin").val() == "") {
+			alert("Nope, alle velden invullen graag c:")
+		}
+	else {
 	var data = { "gbnaam": $("#gbadmin").val(), "vnaam": $("#vnmadmin").val(), "anaam": $("#anmadmin").val()
 			, "ww": $("#wwadmin").val(), "mail": $("#mailadmin").val(), "rol": "admin"}
 
@@ -298,6 +307,7 @@ function registreerAdminAccount(){
 		$("#mailadmin").val("");
 		window.location.replace("admin.html");
 	});
+	}
 }
 
 function zieInschrijvingen(){

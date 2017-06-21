@@ -43,6 +43,6 @@ public class FileResource {
 	    {
 	        throw new WebApplicationException("Error while uploading file. Please try again !!");
 	    }
-	    return Response.ok("Data uploaded successfully !! Keer terug! <button>Terug</button>").build();
+	    return Response.ok("<form action='http://localhost:4711/iPass/Downloads.html'><input type='submit' value='Ga terug'/></form>").build();
 	}
 }

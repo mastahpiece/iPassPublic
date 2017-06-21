@@ -21,7 +21,7 @@ public class BoekResource {
 	
 	@GET
 	@Produces("application/json")
-	public String getAccounts(){
+	public String getBoeken(){
 		JsonArrayBuilder allBoek = Json.createArrayBuilder();
 		
 		for (Boek b : service.getAlleBoeken()) {
