@@ -1,8 +1,6 @@
 package iPass.webservices;
 
 import java.io.InputStream;
-
-import javax.annotation.security.RolesAllowed;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -43,7 +41,6 @@ public class BijeenkomstResource {
 
 	@GET
 	@Path("{id}")
-	@RolesAllowed({"admin"})
 	@Produces("application/json")
 	public String getBijeenkomstByID(@PathParam("id") int id){
 		try {
@@ -68,7 +65,6 @@ public class BijeenkomstResource {
 	}
 	
 	@POST
-	@RolesAllowed({"admin"})
 	@Produces("application/json")
 	public String createCustomer(InputStream is) {
 	    JsonObject object = Json.createReader(is).readObject();

@@ -1,8 +1,8 @@
 $(document).ready(function(){
-	window.onload = laadBijeenkomsten();
+	window.onload = laadBijeenkomsten1();
 	window.onload = laadBoeken();
 
-	if (window.localStorage.getItem("rol") == "user"){
+	if (window.sessionStorage.getItem("rol") == "user"){
 		$(".formulier").hide();
 		$("#table1").hide();
 		$("#loguitKnop").show();
@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 	}
 
-	if (window.localStorage.getItem("rol") == "admin"){
+	if (window.sessionStorage.getItem("rol") == "admin"){
 		$("#pdfinvoertabel").show();
 		$("#loguitKnop").show();
 		$("#loginBar").text("Adminpanel");
@@ -37,19 +37,6 @@ $(document).ready(function(){
     	logIn();
     }); 
     
- /**   $("#loginKnop").click(function(event) {
-      var data = $(".formulier").serialize();
-
-    	  $.post("restservices/authentication", data, function(response) {
-    	    window.sessionStorage.setItem("sessionToken", response);
-    	    	logIn(); 
-    	  }).fail(function(jqXHR, textStatus, errorThrown) {
-    	    console.log(textStatus);
-    	    console.log(errorThrown);
-    	  });
-    	}); **/
-
-
     $("#terugknop").click(function(){
     	$("#tbody5 tr").remove();
     	$(".inschrijvingen").hide();
@@ -78,7 +65,6 @@ $(document).ready(function(){
     	$("#terugknop").show();
     	laadBijeenkomstenAdmin();
     });
-
 
     $("#table3").on("click", "#knop1", function () {
     	var uri = "restservices/bijeenkomsten/" + $(this).val();
@@ -118,7 +104,7 @@ $(document).ready(function(){
 
     $("#table2").on("click","#melder", function(){
     	var value = parseInt(($(this).val()));
-    	var acc_id = parseInt(window.localStorage.getItem("id"));
+    	var acc_id = parseInt(window.sessionStorage.getItem("id"));
 
     	var data = { "bid": value, "aid": acc_id};
     	var JSONdata = JSON.stringify(data);
@@ -155,80 +141,56 @@ $(document).ready(function(){
     
 });
 
-function laadBijeenkomsten(){
-	var storage = window.localStorage.getItem("rol");
-	console.log(storage);
-	if (storage == "user" || storage == "admin"){
-		$("#aanmeldColumn").show();
-		$.getJSON("restservices/bijeenkomsten/", function(data) {
-		$("#tbody tr").remove();
-		var table_body = "";
-			if (data.length < 1){
-			$("#table2").hide();
-		    }
-
-			$.each(data, function(index, data1){
-				var login_accid = window.localStorage.getItem("id");
-				var acc_id = ""
-    	    	$.getJSON("restservices/inschrijvingen/bid/" + data1.id, function(data2){
-    			if (data2 != undefined) {
-    				$.each(data2, function(index, data3){
-    					acc_id = data3.aid;
-	    				if (login_accid == acc_id){
-	    					console.log("id komt overeen :" + login_accid,",",acc_id);
-	    					table_body = "";
-	    					table_body += "<tbody id='tbody'><tr><td>" + data1.beschr + "</td><td>" + data1.toegang +
-	    				    "</td><td>" + data1.datum + "</td><td class='aanmeldtd' id='aa"+data1.id+"'><td>Aangemeld</td></tr></tbody>"
-	    				    $("#table2").append(table_body);
-	    					aanwezigenTeller(data1.id);
-	    				    $(".label1").hide();
-	    					}
-	    				else {	
-	    					console.log("id komt niet overeen :" + login_accid,",",acc_id);
-	    					table_body = "";
-	    					table_body += "<tbody id='tbody'><tr><td>" + data1.beschr + "</td><td>" + data1.toegang +
-	    				    "</td><td>" + data1.datum + "</td><td class='aanmeldtd' id='aa"+data1.id+"'>" +
-	    				    "<td><button value='" + data1.id +"' id='melder'>meld aanwezig</button></td></tr></tbody>"
-	    				    $("#table2").append(table_body);
-	    					aanwezigenTeller(data1.id);
-	    				    $(".label1").hide();
-	    					}
-    				});
-    				}
-
-    			else{
-					console.log("id komt niet overeeeeen :" + login_accid,",",acc_id);
-					table_body = "";
-					table_body += "<tbody id='tbody'><tr><td>" + data1.beschr + "</td><td>" + data1.toegang +
-				    "</td><td>" + data1.datum + "</td><td class='aanmeldtd' id='aa"+data1.id+"'>" +
-				    "<td><button value='" + data1.id +"' id='melder'>meld aanwezig</button></td></tr></tbody>"
-				    $("#table2").append(table_body);
-					aanwezigenTeller(data1.id);
-				    $(".label1").hide();
-					}
-				});
-			});
-		});
-
-	}
-	else{
+function laadBijeenkomsten1(){
 	$.getJSON("restservices/bijeenkomsten/", function(data1) {
-	  $("#tbody tr").remove();
-      var table_body = "";
-      if (data1.length < 1){
-    	  console.log("works");
-    	  $("#table2").hide();
-      }
-      $.each(data1, function(index, data){
-          table_body += "<tbody id='tbody'><tr><td>" + data.beschr + "</td><td>" + data.toegang +
-          "</td><td>" + data.datum + "</td><td class='aanmeldtd' id='aa"+data.id+"'></td></tr></tbody>";
-          aanwezigenTeller(data.id);
-        });
-      $("#table2").append(table_body);
-      $(".label1").hide();
-    });
-	};
-  };
+		  $("#tbody tr").remove();
+	      var table_body = "";
+	      if (data1.length < 1){
+	    	  console.log("works");
+	    	  $("#table2").hide();
+	      }
+	      $.each(data1, function(index, data){
+	          table_body += "<tbody id='tbody'><tr><td>" + data.beschr + "</td><td>" + data.toegang +
+	          "</td><td>" + data.datum + "</td><td class='aanmeldtd' id='aa"+data.id+"'></td><td id='"+data.id+"'></td></tr></tbody>";
+	          aanwezigenTeller(data.id);
+	        });
+	      $("#table2").append(table_body);
+	      $(".label1").hide();
+	    });
+	
+	var rol = window.sessionStorage.getItem("rol");
+	if (rol == "admin" || rol == "user"){
+		console.log(rol);
+		var login_id = window.sessionStorage.getItem("id");
+		$.getJSON("restservices/inschrijvingen/aid/" + login_id, function(data){
+				$.getJSON("restservices/bijeenkomsten/", function(data) {
+					$.each(data, function(index, data1){		
+						$("#"+data1.id+"").html("<button value='" + data1.id +"' id='melder'>meld aanwezig</button></td></tr></tbody>");
+				    	$(".label1").hide();
+				    	$("#aanmeldColumn").show();
+					});
+				});
+			
+			
+			if (data != undefined){
+					table_body = "";
+					
+					$.each(data, function(index, data1){
+						$.getJSON("restservices/bijeenkomsten/" + data1.bid, function(data) {
+							$.each(data, function(index, data1){
+								
+								console.log('ingeschreven');
+							
+								$("#"+data1.id+"").html("Aangemeld");
+								$(".label1").hide();
+								$("#aanmeldColumn").show();
+							});
+						});
+					});
+			}
+	});
+	}
+}
 
 function logIn(){
 	var gbnm = $("#gbnm").val();
@@ -247,10 +209,10 @@ function logIn(){
 
 			if (invoergb == gbnm && invoerww == ww){
 
-		    		  window.localStorage.setItem('user', invoergb);
-		    		  window.localStorage.setItem('pass', invoerww);
-		    		  window.localStorage.setItem("id", id);
-		    		  window.localStorage.setItem("rol", rol);
+		    		  window.sessionStorage.setItem('user', invoergb);
+		    		  window.sessionStorage.setItem('pass', invoerww);
+		    		  window.sessionStorage.setItem("id", id);
+		    		  window.sessionStorage.setItem("rol", rol);
 
 		    		  if (rol == 'admin'){
 		    			  console.log("good jobbu admin-des");
@@ -293,6 +255,17 @@ function updateBijeenkomsten(){
 }
 
 function registreerUserAccount(){
+if( 	
+	$("#gbuser").val() == ""		||
+	$("#vnmuser").val() == ""	||
+	$("#anmuser").val() == ""	||
+	$("#wwuser").val() == ""		||
+	$("#mailuser").val() == "") {
+	alert("Nope, alle velden invullen graag c:")
+}
+
+else {
+	
 	var data = { "gbnaam": $("#gbuser").val(), "vnaam": $("#vnmuser").val(), "anaam": $("#anmuser").val()
 				, "ww": $("#wwuser").val(), "mail": $("#mailuser").val(), "rol": "user"}
 
@@ -307,6 +280,7 @@ function registreerUserAccount(){
 		$("#mailuser").val("");
 		window.location.replace("Login.html");
 	});
+}
 }
 
 function registreerAdminAccount(){
@@ -373,10 +347,10 @@ function myUitlog() {
     if (r == true) {
     	console.log("uitlogfunctie");
     	window.sessionStorage.removeItem("sessionToken");
-   	 	window.localStorage.removeItem("user");
-   	 	window.localStorage.removeItem("pass");
-		window.localStorage.removeItem("rol");
-		window.localStorage.removeItem("id");
+   	 	window.sessionStorage.removeItem("user");
+   	 	window.sessionStorage.removeItem("pass");
+		window.sessionStorage.removeItem("rol");
+		window.sessionStorage.removeItem("id");
 		window.location.replace("Login.html");
     } else {
     	
@@ -389,10 +363,10 @@ function myUitlogAdmin() {
     var r = confirm("Weet u zeker dat u wilt uitloggen?");
     if (r == true) {
     	window.sessionStorage.removeItem("sessionToken");
-   	 	window.localStorage.removeItem("user");
-	 	window.localStorage.removeItem("pass");
-		window.localStorage.removeItem("rol");
-		window.localStorage.removeItem("id");
+   	 	window.sessionStorage.removeItem("user");
+	 	window.sessionStorage.removeItem("pass");
+		window.sessionStorage.removeItem("rol");
+		window.sessionStorage.removeItem("id");
 		window.location.replace("Login.html");
     } else {
     	
