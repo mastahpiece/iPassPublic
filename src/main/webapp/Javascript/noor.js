@@ -2,6 +2,7 @@ $(document).ready(function(){
 	window.onload = laadBijeenkomsten1();
 	window.onload = laadBoeken();
 
+/** Checken of de gebruiker is ingelogd als user en bepaalde delen van de website unhiden **/
 	if (window.sessionStorage.getItem("rol") == "user"){
 		$(".formulier").hide();
 		$("#table1").hide();
@@ -10,14 +11,15 @@ $(document).ready(function(){
 		$("#loginBar").text("Log uit");
 
 	}
-
+/**Checken of de gebruiker een admin is om zo bepaalde delen van de website te unhiden **/
 	if (window.sessionStorage.getItem("rol") == "admin"){
 		$("#pdfinvoertabel").show();
 		$("#loguitKnop").show();
 		$("#loginBar").text("Adminpanel");
 		$("#loginBar").attr("href", "admin.html");
 	}
-
+	
+/** Vanaf hier een reeks click functies **/
     $("#register").click(function(){
         $(".formulier").hide();
         $("#table1").hide();
@@ -35,8 +37,8 @@ $(document).ready(function(){
 
     $("#loginKnop").click(function() {
     	logIn();
-    }); 
-    
+    });
+
     $("#terugknop").click(function(){
     	$("#tbody5 tr").remove();
     	$(".inschrijvingen").hide();
@@ -113,35 +115,37 @@ $(document).ready(function(){
     		laadBijeenkomsten1();
     	});
     });
-    
+
     $("#zieIn").click(function(){
     	$("#table1").hide();
     	$("#bijinvoerknop").hide();
     	$("#terugknop").show();
     	zieInschrijvingen();
     });
-    
+
     $("#table4").on("click","#inschrijvingenKnop", function(){
     	laadInschrijvingen($(this).val());
     });
-    
+
     $("#submitfile").click(function() {
-    	var fileInput = document.getElementById('file'); 
+    	var fileInput = document.getElementById('file');
     	var filename = fileInput.files[0].name;
     	var path = "/iPass/pdf/";
-    	
+
     	var data = { "naam" : filename, "path": path+filename}
     	var JSONdata = JSON.stringify(data);
 
     	$.post("restservices/boeken", JSONdata, function(response){
-    		
+  /** TOT HIER (de klikfuncties) **/
     	});
-    	
+
     });
-    
+
 });
 
+/** Deze functie wordt gebruikt om de Bijeenkomsten in te laden in de tabel **/
 function laadBijeenkomsten1(){
+	/** Dit is waar de bijeenkomsten worden opgehaald **/
 	$.getJSON("restservices/bijeenkomsten/", function(data1) {
 		  $("#tbody tr").remove();
 	      var table_body = "";
@@ -149,6 +153,7 @@ function laadBijeenkomsten1(){
 	    	  console.log("works");
 	    	  $("#table2").hide();
 	      }
+				/** Hier worden de bijeenkomsten in de tabel gezet**/
 	      $.each(data1, function(index, data){
 	          table_body += "<tbody id='tbody'><tr><td>" + data.beschr + "</td><td>" + data.toegang +
 	          "</td><td>" + data.datum + "</td><td class='aanmeldtd' id='aa"+data.id+"'></td><td id='"+data.id+"'></td></tr></tbody>";
@@ -157,68 +162,77 @@ function laadBijeenkomsten1(){
 	      $("#table2").append(table_body);
 	      $(".label1").hide();
 	    });
-	
+
+	/** Hier wordt gecontroleerd of de gebruiker een user/admin is om dan aanmeldknop te vervangen met een tekst **/
 	var rol = window.sessionStorage.getItem("rol");
 	if (rol == "admin" || rol == "user"){
-		console.log(rol);
+		$.getJSON("restservices/bijeenkomsten/", function(data1) {
+			  $("#tbody tr").remove();
+		      var table_body = "";
+		      if (data1.length < 1){
+		    	  console.log("works");
+		    	  $("#table2").hide();
+		      }
+					/** Hier worden de bijeenkomsten in de tabel gezet**/
+		      $.each(data1, function(index, data){
+		          table_body += "<tbody id='tbody'><tr><td>" + data.beschr + "</td><td>" + data.toegang +
+		          "</td><td>" + data.datum + "</td><td class='aanmeldtd' id='aa"+data.id+"'></td><td class='knoptd' id='"+data.id+"'><button value='" 
+		          + data.id +"'id='melder'>meld aanwezig</button></td></tr></tbody>";
+		          aanwezigenTeller(data.id);
+		        });
+		      $("#table2").append(table_body);
+		      $(".label1").hide();
+		    });
+		
 		var login_id = window.sessionStorage.getItem("id");
+		/** Kijk of de user in de tabel met inschrijvingen voorkomt **/
 		$.getJSON("restservices/inschrijvingen/aid/" + login_id, function(data){
-				$.getJSON("restservices/bijeenkomsten/", function(data) {
-					$.each(data, function(index, data1){		
-						$("#"+data1.id+"").html("<button value='" + data1.id +"' id='melder'>meld aanwezig</button></td></tr></tbody>");
-				    	$(".label1").hide();
-				    	$("#aanmeldColumn").show();
-					});
-				});
-			
-			
-			if (data != undefined){
 					table_body = "";
-					
 					$.each(data, function(index, data1){
 						$.getJSON("restservices/bijeenkomsten/" + data1.bid, function(data) {
 							$.each(data, function(index, data1){
-								
-								console.log('ingeschreven');
-							
 								$("#"+data1.id+"").html("Aangemeld");
 								$(".label1").hide();
 								$("#aanmeldColumn").show();
 							});
 						});
 					});
-			}
 	});
 	}
 }
-
+/** Loginfunctie **/
 function logIn(){
 	var gbnm = $("#gbnm").val();
 	var ww = $("#ww").val();
 
+/** Spreekt voor zichzelf **/
 	if ( gbnm == "" || ww == "" ) {
 		alert('gebruikersnaam mag niet leeg zijn')
 	}
 
 	else {
+		/** Haal account op met invoergebruikersnaam **/
 		$.getJSON("restservices/accounts/" + gbnm + "/", function(data) {
 			var invoergb = data.gbnaam;
 			var invoerww = data.ww;
 			var rol = data.rol;
 			var id = data.id;
 
+			/** Controleer of de invoer overeenkomt met databasegegevens **/
 			if (invoergb == gbnm && invoerww == ww){
-
+							/** Zo ja sla gegevens op in de sessionStorage **/
 		    		  window.sessionStorage.setItem('user', invoergb);
 		    		  window.sessionStorage.setItem('pass', invoerww);
 		    		  window.sessionStorage.setItem("id", id);
 		    		  window.sessionStorage.setItem("rol", rol);
 
 		    		  if (rol == 'admin'){
+								/** Als role admin is wordt deze verwezen naar adminPanel **/
 		    			  console.log("good jobbu admin-des");
 		    			  window.location.replace("admin.html");
 		    		  }
 		    		  else {
+								/** Als de role een user is dan naar de normale login pagina **/
 		    			  window.location.replace("Login.html");
 		    			  console.log('good jobbu user-des')
 		    		  }
@@ -231,6 +245,7 @@ function logIn(){
 	}
 }
 
+/** Hier worden bijeenkomsten geladen waarbij de admin bijeenkomsten kan deleten in de tabel **/
 function laadBijeenkomstenAdmin(){
 	$.getJSON("restservices/bijeenkomsten/", function(data1) {
 	      var table_body = "";
@@ -243,7 +258,7 @@ function laadBijeenkomstenAdmin(){
 
 	    });
 	  };
-
+/** Met deze functie worden bijeenkomsten ingevoerd **/
 function updateBijeenkomsten(){
 	var data = { "beschr": $("#beschrijving").val(), "toegang": $("#toegangVoor").val(), "datum": $("#datum").val() }
     var JSONdata = JSON.stringify(data);
@@ -254,8 +269,9 @@ function updateBijeenkomsten(){
 
 }
 
+/** Met behulp van deze functie worden useraccounts geregistreerd **/
 function registreerUserAccount(){
-if( 	
+if(
 	$("#gbuser").val() == ""		||
 	$("#vnmuser").val() == ""	||
 	$("#anmuser").val() == ""	||
@@ -265,7 +281,7 @@ if(
 }
 
 else {
-	
+
 	var data = { "gbnaam": $("#gbuser").val(), "vnaam": $("#vnmuser").val(), "anaam": $("#anmuser").val()
 				, "ww": $("#wwuser").val(), "mail": $("#mailuser").val(), "rol": "user"}
 
@@ -283,8 +299,9 @@ else {
 }
 }
 
+/** Met behulp van deze functie worden adminaccounts geregistreerd **/
 function registreerAdminAccount(){
-	if( 	
+	if(
 			$("#gbadmin").val() == ""		||
 			$("#vnadmin").val() == ""	||
 			$("#anmadmin").val() == ""	||
@@ -309,7 +326,7 @@ function registreerAdminAccount(){
 	});
 	}
 }
-
+/** Hier wordt de bijeenkomstTabel geladen waarmee de admin inschrijvingen gaat kunnen inzien **/
 function zieInschrijvingen(){
 	$(".inschrijvingen").show();
 	$("#t4body tr").remove();
@@ -323,9 +340,12 @@ function zieInschrijvingen(){
 		    $("#table4").append(table_body);
 	});
 }
-
+/** Met behulp van deze functie kan je met een klik op de bijeenkomst de inschrijvingen van de
+		betreffende bijeenkomst inzien **/
 function laadInschrijvingen(bid){
 	$("#tbody5 tr").remove();
+	/** De parameter die een bijeenkomstid is wordt opgezocht in tabel en in de volgende functie
+	 		gekoppeld aan een account. Zo itereer het programma met een loop in een loop om combinaties te vinden**/
 	$.getJSON("restservices/inschrijvingen/bid/" + bid, function(data){
 		var teller = 0;
 		$.each(data, function(index, data1){
@@ -336,21 +356,23 @@ function laadInschrijvingen(bid){
 				});
 			});
 		});
-		
+
 	});
 }
 
+/** Met behulp van deze functie vul ik de pdf download tabel met links **/
 function laadBoeken(){
 	var table_body = "";
 	$.getJSON("restservices/boeken", function(data){
 		$.each(data, function(index, data1){
-			table_body += "<tr><td>" + data1.naam + 
-			"<td><a href='"+data1.path+"'>Download</a></td></tr>"; 
+			table_body += "<tr><td>" + data1.naam +
+			"<td><a href='"+data1.path+"'>Download</a></td></tr>";
 		});
 		$("#downloads").append(table_body);
 	});
 }
 
+/** Uitlogfunctie met removeitems uit de sessionstorage voor users **/
 function myUitlog() {
     var txt;
     var r = confirm("Weet u zeker dat u wilt uitloggen?");
@@ -363,11 +385,12 @@ function myUitlog() {
 		window.sessionStorage.removeItem("id");
 		window.location.replace("Login.html");
     } else {
-    	
+
     }
 
 }
 
+/** Uitlogfunctie met removeitems uit de sessionstorage voor admins **/
 function myUitlogAdmin() {
     var txt;
     var r = confirm("Weet u zeker dat u wilt uitloggen?");
@@ -379,11 +402,14 @@ function myUitlogAdmin() {
 		window.sessionStorage.removeItem("id");
 		window.location.replace("Login.html");
     } else {
-    	
+
     }
 
-} 
+}
 
+/** Dit is de teller die bij elke tabel wordt gebruikt om het aantal aanwezigen per
+ 		bijeenkomst te tellen. De teller voegt dan per rij die een bijeenkomst-id heeft
+		het getal toe**/
 function aanwezigenTeller(bid){
 	$("#tbody5 tr").remove();
 	$.getJSON("restservices/inschrijvingen/bid/" + bid, function(data){
@@ -399,5 +425,5 @@ function aanwezigenTeller(bid){
 		$("#aa"+bid).append(teller);
 		}
 	});
-	
+
 }

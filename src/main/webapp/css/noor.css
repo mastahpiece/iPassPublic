@@ -31,6 +31,10 @@ div {
     display: inline-block;
 }
 
+.knoptd {
+	width: 15%;
+}
+
 .moskeepic {
   width: 100%;
   height: 300px;
