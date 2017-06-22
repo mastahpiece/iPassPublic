@@ -178,7 +178,6 @@ function laadBijeenkomsten1(){
 		          table_body += "<tbody id='tbody'><tr><td>" + data.beschr + "</td><td>" + data.toegang +
 		          "</td><td>" + data.datum + "</td><td class='aanmeldtd' id='aa"+data.id+"'></td><td class='knoptd' id='"+data.id+"'><button value='" 
 		          + data.id +"'id='melder'>meld aanwezig</button></td></tr></tbody>";
-		          aanwezigenTeller(data.id);
 		        });
 		      $("#table2").append(table_body);
 		      $(".label1").hide();
